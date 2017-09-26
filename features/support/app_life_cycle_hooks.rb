@@ -1,7 +1,7 @@
 require 'calabash-android/management/adb'
 require 'calabash-android/operations'
 
-=begin
+begin
   
 Before do |scenario|
   start_test_server_in_background
@@ -14,4 +14,4 @@ After do |scenario|
   shutdown_test_server
 end
 
-=end
+end

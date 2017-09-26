@@ -71,6 +71,10 @@ class CadastroDeCarrosWebPage < Calabash::ABase
         field('alterar')
     end
 
+    def deletar_button
+        field('deletar')
+    end
+
     def cadastrar(carro,botaoNome)
         enter_text(modelo_field, carro.modelo)
         enter_text(ano_field, carro.ano)
@@ -84,8 +88,7 @@ class CadastroDeCarrosWebPage < Calabash::ABase
             when "Cadastrar"
                 touch(cadastrar_button)
             when "Alterar"
-                touch(alterar_button) 
-            when "Deletar"
+                touch(alterar_button)
         else
             puts "botão com nome incorreto. utilizar apenas as opções: 'Cadastrar', 'Alterar' ou 'Deletar'"
         end
@@ -99,6 +102,11 @@ class CadastroDeCarrosWebPage < Calabash::ABase
         clear_text_in("* text:'#{carro.kilometragem}'")
         clear_text_in("* text:'#{carro.valor}'")
         hide_soft_keyboard
+    end
+
+    def deletarCarro
+        touch(deletar_button)
+        sleep 4
     end
 
     def validarCampoCadastro(campoCarro,nomecampo)
@@ -142,9 +150,12 @@ class ConsultarCadastroPage < Calabash::ABase
 
     def scrollDownEClica(carro)
         q = query("* text:'#{carro.placa}'")
+        cont = 0
         while q.empty?
+            break if cont == 15
             scroll_down
             q = query("* text:'#{carro.placa}'")
+            cont = cont + 1
         end
         if not q.empty? 
             touch(("* text:'#{carro.placa}'")) 

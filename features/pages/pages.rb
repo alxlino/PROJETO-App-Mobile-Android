@@ -67,7 +67,11 @@ class CadastroDeCarrosWebPage < Calabash::ABase
         field('cadastrar')
     end
 
-    def cadastrar(carro)
+    def alterar_button
+        field('alterar')
+    end
+
+    def cadastrar(carro,botaoNome)
         enter_text(modelo_field, carro.modelo)
         enter_text(ano_field, carro.ano)
         enter_text(placa_field, carro.placa)
@@ -75,8 +79,26 @@ class CadastroDeCarrosWebPage < Calabash::ABase
         enter_text(valor_field, carro.valor)
         hide_soft_keyboard
         sleep 3
-        touch(cadastrar_button)
+        
+        case botaoNome
+            when "Cadastrar"
+                touch(cadastrar_button)
+            when "Alterar"
+                touch(alterar_button) 
+            when "Deletar"
+        else
+            puts "botão com nome incorreto. utilizar apenas as opções: 'Cadastrar', 'Alterar' ou 'Deletar'"
+        end
         sleep 3
+    end
+
+    def apagarCampos(carro)
+        clear_text_in("* text:'#{carro.modelo}'")
+        clear_text_in("* text:'#{carro.ano}'")
+        clear_text_in("* text:'#{carro.placa}'")
+        clear_text_in("* text:'#{carro.kilometragem}'")
+        clear_text_in("* text:'#{carro.valor}'")
+        hide_soft_keyboard
     end
 
     def validarCampoCadastro(campoCarro,nomecampo)
@@ -114,10 +136,6 @@ class ConsultarCadastroPage < Calabash::ABase
         "* text:'#{field_text}'"
     end
 
-    def field_pos
-        "* center_y: '1699'"
-    end
-
     def verifica_elementoPos?
         element_exists(field_pos)
     end
@@ -131,7 +149,14 @@ class ConsultarCadastroPage < Calabash::ABase
         if not q.empty? 
             touch(("* text:'#{carro.placa}'")) 
         end
+        sleep 2
+    end
 
+    def voltarPaginaInicial
+        while verifica_elemento? == true
+            press_back_button
+            verifica_elemento?
+        end
     end
     
 

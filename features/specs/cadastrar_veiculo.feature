@@ -1,7 +1,7 @@
 
 Feature: Cadastrar Veículos no aplicativo Cadastro de Carros Web
 
-@doing
+@cadastrar
 Scenario: Cadastrar um novo veículo pelo aplicativo
 
   Given que eu tenho um novo carro:

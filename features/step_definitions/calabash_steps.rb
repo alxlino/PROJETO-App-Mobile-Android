@@ -18,7 +18,7 @@ When(/^cadastro esse carro$/) do
 
     expect(@cadastroDeCarrosWeb.verifica_pagina?).to be(true)
 
-    @cadastroDeCarrosWeb.cadastrar(@carro)
+    @cadastroDeCarrosWeb.cadastrar(@carro,"Cadastrar")
 
     sleep 5
     
@@ -45,5 +45,7 @@ Then(/^esse novo carro deve ser exibido na busca$/) do
     @cadastroDeCarrosWeb.validarCampoCadastro(@carro.placa,'Placa')
     @cadastroDeCarrosWeb.validarCampoCadastro(@carro.kilometragem,'KM')
     @cadastroDeCarrosWeb.validarCampoCadastro(@carro.valor,'Valor')
+    
+    press_back_button
 
 end                                                                          

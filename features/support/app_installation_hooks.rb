@@ -1,5 +1,6 @@
 require 'calabash-android/management/app_installation'
 
+=begin
 AfterConfiguration do |config|
   FeatureMemory.feature = nil
 end
@@ -25,3 +26,4 @@ Before do |scenario|
 end
 
 FeatureMemory = Struct.new(:feature, :invocation).new
+=end
